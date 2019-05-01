@@ -2,12 +2,13 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
 
@@ -15,7 +16,8 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">vueJs</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -29,29 +31,70 @@
           <li class="nav-item">
             <a class="nav-link" href="#">test</a>
           </li>
-        
         </ul>
       </div>
     </nav>
   </header>
 
   <div id="app">
-      <a :href="url + '/admin'"> {{message}}</a>
-      <div class="card-body bg-success" v-if="success">
-          <p>All Done</p>
-      </div>
+    <a :href="url"> {{message}}</a>
+    <a :href="url + '/admin'"> Administration</a>
+    <div class="card-body bg-success" v-if="success" >
+      <i class="close icon" @click="close">x</i>
+      <p>All Done</p>
+    </div>
+    <!-- v-else doti etre au même niveau qie v-if -->
+    <div class="card-body bg-danger text-light" v-else>
+      <!-- @click="close" est bindé sur la method close dans l'obj Vue -->
+      <i class="close icon" @click="close">x</i>
+      <p>NOOOOOP !!!!</p>
+    </div>
+    <ul>
+      <li v-for="person in persons">{{person}}</li>
+    </ul>
   </div>
+  <div class="container">
+  <hr>
+  <h1>1</h1>
+  <hr>
+  
+  <div id="MyId">
+    <!-- v-model update automatiquemet le champs message -->
+    <input type="text" v-model="message">
+    <h1 class="p-3" >{{message}}</h1> 
+  </div> 
+<hr>
+<h1>2</h1>
+<hr>
+  <div id="MyId2">
+    <input type="text"  v-model="inputMessage">
+    <button @click="updateH2()">Apply</button>
+    <h2 class="p-3" >{{message}}</h2>
+  </div>
+  <hr>
+  <h1>3</h1>
+  <hr>
+  <div id="MyId3">
+      <h1 class="p-3" :class="cls()">text</h1>
+      <input type="checkbox" v-model="success" >
+  </div> 
+  <hr>
+  <h1>4</h1>
+  <hr>
+  <div id="MyId4">
+      <h3 class="p-3">image</h3>
+      <img src="https://picsum.photos/200/300" alt=""v-if="success">
+      <input type="checkbox" v-model="success" >
+  </div> 
 
-
-
-
+</div>
 
   <footer>
 
-  </footer>  
+  </footer>
 
-<!-- development version, includes helpful console warnings -->
-<script src="vue.js"></script>
+  <!-- development version, includes helpful console warnings -->
+  <script src="vue.js"></script>
   <script src="app.js"></script>
 
 
