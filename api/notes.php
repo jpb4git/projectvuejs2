@@ -2,7 +2,7 @@
 
 $_array_Notes;
 $db = createConnexion();
-$_postNewElement = isset($_POST) && $_POST['action'] == 'createNote';
+$_postNewElement = isset($_POST) && isset($_POST['action']) ;
 $deleteItem =  (isset($_GET['action']) && $_GET['action'] == 'delete') ;
 
 
@@ -12,7 +12,7 @@ if ($_postNewElement){
         createNote($_POST,$db);
 }else{
     if ($deleteItem){
-        var_dump('try to delete  : ' . $_GET['id'] );die();
+        deleteNote($_GET['id'],$db);
 
     }else{
         $_array_Notes = getAllNotes($db);
@@ -36,10 +36,14 @@ if ($_postNewElement){
  */
 function createConnexion(){
     $_db ="";
-    $LOCAL_DNS = 'mysql:dbname=globalNotes;host=localhost;charset=utf8';
-    $LOCAL_USER = 'jpb@localhost';
-    $LOCAL_PASSWORD ='A-1234-test';  
+    //$LOCAL_DNS = 'mysql:dbname=globalNotes;host=localhost;charset=utf8';
+    //$LOCAL_USER = 'jpb@localhost';
+    //$LOCAL_PASSWORD ='A-1234-test';  
    
+    $LOCAL_DNS = 'mysql:dbname=globalnotes;host=localhost;charset=utf8';
+    $LOCAL_USER = 'root';
+    $LOCAL_PASSWORD ='password';  
+
   try {
     $_db = new PDO($LOCAL_DNS, $LOCAL_USER, $LOCAL_PASSWORD);   
 
@@ -71,7 +75,7 @@ function getNote($id){
 function  getAllNotes($db){
    
     $_array=[];
-    $sql = "SELECT * FROM notes ORDER BY id DESC LIMIT 2";
+    $sql = "SELECT * FROM notes ORDER BY id DESC";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 
@@ -206,8 +210,8 @@ function validateForm($post){
     }
         
 
-    if ($_POST['showOrder'] == "0"){
-        $errors['showOrder'] = 'ShowOrder > 0  requis.';
+    if ($_POST['showorder'] == "0"){
+        $errors['showorder'] = 'ShowOrder > 0  requis.';
     }
         
 
@@ -222,6 +226,10 @@ return $errors;
 }
 
 
-function deleteNote($id){
+function deleteNote($id,$db){
+  $sql ="DELETE FROM notes WHERE id =? ";
+  $smtp = $db->prepare($sql);
+  $smtp->execute([$id]);
+  $smtp = null;
 
 }
