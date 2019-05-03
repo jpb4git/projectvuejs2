@@ -71,7 +71,7 @@ function getNote($id){
 function  getAllNotes($db){
    
     $_array=[];
-    $sql = "SELECT * FROM notes ORDER BY id DESC LIMIT 2";
+    $sql = "SELECT * FROM notes ORDER BY id DESC ";
     $stmt = $db->prepare($sql);
     $stmt->execute();
 
