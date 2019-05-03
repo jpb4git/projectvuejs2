@@ -47,7 +47,7 @@
         <button @click="showNoteForm()">créer une Note</button> 
 </div>
 <!--toast error -->
-<div class="col-sm-12" v-if="errors != ''">
+<div class="col-sm-12" v-if="IsError">
     <div class="card"  aria-live="assertive" aria-atomic="true">
         <div class="card-header">
             <img src="" class="rounded mr-2" alt="">
@@ -59,7 +59,7 @@
         </div>
         <div class="card-body">
             <ul>
-                <li v-for="error in errors"> {{error.label}} </li>
+                <li v-for="error in errors"> {{error}} </li>
             </ul>
         </div>
     </div>

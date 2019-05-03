@@ -20,15 +20,11 @@ mounted : function(){
 },
 
 methods :{
-
-
 // Ajax call
 getNotes : function(){
     axios.get('api/notes.php')
     .then(function (response) {
-        //console.log(response.data);
         app.notes = response.data;
-
     })
     .catch(function (error) {
         console.log(error);
@@ -46,6 +42,7 @@ getNotes : function(){
  
   this.showForm = !this.showForm;
   this.showTable = false;
+  app.errors =[];
  },
 
  createNote: function(){
@@ -76,21 +73,22 @@ getNotes : function(){
     .then(function (response) {
        // console.log(response)
         if (response.data.success){
-              console.log('no error in form proceed to save')  
+             
         }else{
-             this.errors  = response.data.errors ;    
-             console.log(this.errors)  
+             app.errors = response.data.errors ;        
         }
-        //handle success
-        
-      
-        //app.notes.push(note)
         app.resetForm();
     })
     .catch(function (response) {
         //handle error
         console.log(response)
     });
+   
+    this.notes = this.getNotes();
+},
+
+IsError : function(){
+    return (app.errors.length > 0); 
 },
 
 updateNote:function(id){
@@ -106,22 +104,17 @@ updateNote:function(id){
 
 },
 deleteNote:function(id){
-   
-    console.log('CLICKED DELETE! ' + id);
-    
     // load data from this id
     axios({
         method: 'GET',
-        url: 'api/notes.php?action=delete&id =' +id,
+        url: 'api/notes.php?action=delete&id='+id,
     })
-
-    .then (function (response){})
-    .catch(function (response) {    console.log(response)}
+    .then (function (response){
+    })
+    .catch(function (response) {console.log(response)});
     
-    );
-    
-    
-      
+    // refresh data
+    this.notes = this.getNotes();  
   
   
   },
@@ -144,4 +137,7 @@ resetForm: function(){
 
 }, //methods
 
+computed :{
+    
+}
 });
